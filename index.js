@@ -10,6 +10,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use("/api", authRoutes);
+const problemRoutes = require("./routes/problem");
+app.use("/api/problem", problemRoutes);
 
 mongoose
   .connect(process.env.MONGO_URI)
