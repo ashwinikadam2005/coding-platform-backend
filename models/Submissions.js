@@ -8,7 +8,7 @@ const SubmissionSchema = new mongoose.Schema({
   title: String,
   userCode: String,
   languageId: Number,
-  userId: String, // optional
+  userId: String, 
   timestamp: {
     type: Date,
     default: Date.now,

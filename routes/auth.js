@@ -37,7 +37,7 @@ const generateUsername = async (name) => {
   return username;
 };
 
-// ✅ SIGNUP ROUTE
+// SIGNUP ROUTE
 router.post("/signup", async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -74,7 +74,7 @@ router.post("/signup", async (req, res) => {
   }
 });
 
-// ✅ LOGIN ROUTE
+//  LOGIN ROUTE
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;

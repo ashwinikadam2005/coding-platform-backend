@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 const SolvedSchema = new mongoose.Schema({
   problemId: {
-    type: String, // or ObjectId if you want to reference Problem collection
+    type: String, 
     required: true,
   },
   title: String,

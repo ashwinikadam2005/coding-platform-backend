@@ -1,4 +1,3 @@
-// 1. Update User model to support contest registration
 // models/User.js
 const mongoose = require("mongoose");
 

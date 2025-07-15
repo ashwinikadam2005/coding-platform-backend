@@ -25,7 +25,7 @@ const authMiddleware = (req, res, next) => {
   }
 };
 
-// ✅ GET user profile
+//  GET user profile
 router.get("/", authMiddleware, async (req, res) => {
   try {
     const user = await User.findById(req.userId).select("-password");
@@ -37,7 +37,7 @@ router.get("/", authMiddleware, async (req, res) => {
   }
 });
 
-// ✅ POST to update full profile
+//  POST to update full profile
 router.post("/", authMiddleware, async (req, res) => {
   try {
     const updateData = req.body;
@@ -55,7 +55,7 @@ router.post("/", authMiddleware, async (req, res) => {
   }
 });
 
-// ✅ PUT to update only skills
+//  PUT to update only skills
 router.put("/skills", authMiddleware, async (req, res) => {
   try {
     const { skills } = req.body;
@@ -76,7 +76,7 @@ router.put("/skills", authMiddleware, async (req, res) => {
   }
 });
 
-// 🗂️ Resume Upload Storage Config
+// Resume Upload Storage Config
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     const dir = path.join(__dirname, "../uploads/resumes");
@@ -93,7 +93,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// 📤 Resume Upload Endpoint
+//  Resume Upload Endpoint
 router.post(
   "/upload-resume",
   authMiddleware,
