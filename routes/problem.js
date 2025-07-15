@@ -5,13 +5,25 @@ const Problem = require("../models/Problem");
 // Seed a default problem
 router.post("/add", async (req, res) => {
   try {
-    const { title, description, difficulty, category, testCases } = req.body;
+    const {
+      title,
+      description,
+      difficulty,
+      category,
+      inputFormat,
+      outputFormat,
+      sampleTestCases,
+      testCases,
+    } = req.body;
 
     const newProblem = new Problem({
       title,
       description,
       difficulty,
       category,
+      inputFormat,
+      outputFormat,
+      sampleTestCases,
       testCases,
     });
 
@@ -22,6 +34,7 @@ router.post("/add", async (req, res) => {
     res.status(500).json({ message: "Failed to add problem", error });
   }
 });
+
 
 
 router.get("/", async (req, res) => {

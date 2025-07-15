@@ -2,16 +2,32 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const authRoutes = require("./routes/auth");
+const path = require("path");
 
 dotenv.config();
+
+const authRoutes = require("./routes/auth");
+const problemRoutes = require("./routes/problem");
+const recruiterRoutes = require("./routes/recruiter");
+const profileRoutes = require("./routes/profile"); // ✅ DO NOT CALL AS A FUNCTION
+const contestRoutes = require("./routes/contestRoutes");
+const userRoutes = require("./routes/userRoutes");
+const solvedRoutes = require("./routes/solved");
+const submissionRoutes = require("./routes/submissions");
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 app.use("/api", authRoutes);
-const problemRoutes = require("./routes/problem");
 app.use("/api/problem", problemRoutes);
+app.use("/api/recruiters", recruiterRoutes);
+app.use("/api/profile", profileRoutes); // ✅ THIS MUST NOT BE profileRoutes()
+app.use("/api/contests", contestRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/solved", solvedRoutes);
+app.use("/api/submissions",submissionRoutes );
 
 mongoose
   .connect(process.env.MONGO_URI)

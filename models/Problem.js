@@ -5,6 +5,14 @@ const problemSchema = new mongoose.Schema({
   description: String,
   difficulty: String,
   category: String,
+  inputFormat: String,
+  outputFormat: String,
+  sampleTestCases: [
+    {
+      input: String,
+      expectedOutput: String,
+    },
+  ],
   testCases: [
     {
       input: String,
