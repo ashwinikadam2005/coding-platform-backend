@@ -25,9 +25,20 @@ router.post("/", async (req, res) => {
 });
 
 // Get all submissions for a specific problem (optional)
+// Get submissions for a specific problem, optionally filtered by userId
 router.get("/:problemId", async (req, res) => {
+  const { problemId } = req.params;
+  const { userId } = req.query; // <-- get userId from query string
+
   try {
-    const submissions = await Submission.find({ problemId: req.params.problemId });
+    const query = { problemId };
+
+    // If userId is provided, filter by userId too
+    if (userId) {
+      query.userId = userId;
+    }
+
+    const submissions = await Submission.find(query).sort({ timestamp: -1 });
     res.status(200).json(submissions);
   } catch (err) {
     console.error("Error fetching submissions:", err);

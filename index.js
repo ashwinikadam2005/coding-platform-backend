@@ -14,6 +14,7 @@ const contestRoutes = require("./routes/contestRoutes");
 const userRoutes = require("./routes/userRoutes");
 const solvedRoutes = require("./routes/solved");
 const submissionRoutes = require("./routes/submissions");
+const leaderboardRoutes = require("./routes/leaderboard");
 
 const app = express();
 app.use(cors());
@@ -28,6 +29,7 @@ app.use("/api/contests", contestRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/solved", solvedRoutes);
 app.use("/api/submissions",submissionRoutes );
+app.use("/api/leaderboard", leaderboardRoutes);  // 👈 mount leaderboard route
 
 mongoose
   .connect(process.env.MONGO_URI)
