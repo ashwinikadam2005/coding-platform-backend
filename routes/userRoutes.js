@@ -2,6 +2,18 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
 const Contest = require("../models/Contest");
+const UserProgress = require("../models/UserProgress"); // ✅ Add this line
+
+
+router.get("/all-developers", async (req, res) => {
+  try {
+    const users = await User.find().select("-password"); // hide passwords
+    res.status(200).json(users);
+  } catch (err) {
+    console.error("Error fetching developers:", err);
+    res.status(500).json({ error: "Failed to fetch developers" });
+  }
+});
 
 // Register a user for a contest
 router.post("/register-contest", async (req, res) => {
@@ -28,6 +40,7 @@ router.post("/register-contest", async (req, res) => {
     res.status(500).json({ error: "Failed to register for contest" });
   }
 });
+
 // GET user with registered contests
 router.get("/:id", async (req, res) => {
   try {
@@ -45,5 +58,19 @@ router.get("/:id", async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 });
+
+
+// Get all registered developers
+// router.get("/developers", async (req, res) => {
+//   try {
+//     const users = await User.find().select("-password"); // hide passwords
+//     res.status(200).json(users);
+//   } catch (err) {
+//     console.error("Error fetching developers:", err);
+//     res.status(500).json({ error: "Failed to fetch developers" });
+//   }
+// });
+
+
 
 module.exports = router;

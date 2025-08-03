@@ -59,4 +59,15 @@ router.post("/login", async (req, res) => {
   }
 });
 
+// GET all recruiters
+router.get("/", async (req, res) => {
+  try {
+    const recruiters = await Recruiter.find({}, "-password"); // exclude password
+    res.status(200).json(recruiters);
+  } catch (error) {
+    console.error("Fetch recruiters error:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 module.exports = router;

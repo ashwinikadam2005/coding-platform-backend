@@ -1,4 +1,3 @@
-// models/User.js
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
@@ -12,7 +11,7 @@ const userSchema = new mongoose.Schema({
   skills: [String],
   links: {
     github: String,
-    linkedin: String
+    linkedin: String,
   },
   experience: [
     {
@@ -31,10 +30,38 @@ const userSchema = new mongoose.Schema({
       start: Date,
       end: Date,
       gradeType: String,
-      grade: String
+      grade: String,
     }
   ],
+  // ✅ NEW FIELDS FOR PROGRESS TRACKING
+  points: {
+    type: Number,
+    default: 0,
+  },
+  stars: {
+    type: Number,
+    default: 0,
+  },
   badges: [String],
+
+  // ✅ Track solved problems and difficulty
+  solvedProblems: [
+    {
+      problemId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Problem'
+      },
+      difficulty: {
+        type: String,
+        enum: ["Easy", "Medium", "Hard"]
+      },
+      solvedAt: {
+        type: Date,
+        default: Date.now
+      }
+    }
+  ],
+
   certifications: [String],
   registeredContests: [
     {

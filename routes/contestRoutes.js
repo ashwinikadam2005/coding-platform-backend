@@ -2,11 +2,10 @@ const express = require("express");
 const router = express.Router();
 const Contest = require("../models/Contest");
 
-
 // GET all contests
 router.get("/", async (req, res) => {
   try {
-    const contests = await Contest.find().sort({ date: 1 });
+    const contests = await Contest.find().sort({ startDate: 1 });
     res.json(contests);
   } catch (err) {
     console.error("Fetch error:", err);
@@ -14,22 +13,33 @@ router.get("/", async (req, res) => {
   }
 });
 
-// POST a new contest
+// POST create new contest
 router.post("/", async (req, res) => {
   try {
-    const { name, organization, date, description, status, category } = req.body;
+    const {
+      name,
+      organization,
+      startDate,
+      endDate,
+      description,
+      questions,
+      status,
+      category
+    } = req.body;
 
-    if (!name || !organization || !date || !description) {
+    if (!name || !organization || !startDate || !endDate || !description) {
       return res.status(400).json({ error: "All required fields must be provided" });
     }
 
     const newContest = new Contest({
       name,
       organization,
-      date,
+      startDate,
+      endDate,
       description,
+      questions,
       status,
-      category,
+      category
     });
 
     await newContest.save();
@@ -40,7 +50,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-// Get contest by ID
+// GET contest by ID
 router.get("/:id", async (req, res) => {
   try {
     const contest = await Contest.findById(req.params.id);
@@ -51,5 +61,16 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+// DELETE route in Express
+router.delete("/:id", async (req, res) => {
+  try {
+    const contest = await Contest.findByIdAndDelete(req.params.id);
+    if (!contest) return res.status(404).json({ message: "Contest not found" });
+    res.json({ message: "Contest deleted successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Error deleting contest" });
+  }
+});
 
 module.exports = router;
