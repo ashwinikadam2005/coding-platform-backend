@@ -17,6 +17,8 @@ const submissionRoutes = require("./routes/submissions");
 const leaderboardRoutes = require("./routes/leaderboard");
 const progressRoutes = require("./routes/progress");
 const userContestRoutes = require("./routes/userContests");
+const recruiterContestRoutes = require("./routes/recruiterContest");
+const candidateRoutes = require("./routes/candidateRoutes");
 
 const app = express();
 
@@ -44,6 +46,8 @@ app.use("/api/submissions", submissionRoutes);
 app.use("/api/leaderboard", leaderboardRoutes);
 app.use("/api/progress", progressRoutes);
 app.use("/api/user-contests", userContestRoutes);
+app.use("/recruiter/contest", recruiterContestRoutes);
+app.use("/api/candidates", candidateRoutes);
 
 // Connect to MongoDB
 const PORT = process.env.PORT || 5000;
